@@ -6,9 +6,7 @@
 
 <!-- code_chunk_output -->
 
-- [oci-scripts](#oci-scripts)
-  - [usage](#usage)
-    - [start-oke-worker-node](#start-oke-worker-node)
+- [start-oke-worker-node](#start-oke-worker-node)
 
 <!-- /code_chunk_output -->
 
