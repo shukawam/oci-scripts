@@ -31,7 +31,7 @@ options:
 $ python3 delete-oke-quickstart-vcn.py --help
 usage: delete-oke-quickstart-vcn.py [-h] [--compartment-id COMPARTMENT_ID] [--vcn-id VCN_ID] [--profile PROFILE]
 
-OKE Worker Node START Script.
+OKE quick-start VCN automatically deleting script.
 
 options:
   -h, --help                       show this help message and exit
