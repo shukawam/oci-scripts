@@ -16,6 +16,7 @@ def parseInput():
     parser = argparse.ArgumentParser(
         description="OKE Worker Node START Script.", formatter_class=CustomHelpFormatter)
     parser.add_argument('--compartment-id', type=str, help="[required]")
+    parser.add_argument('--vcn-id', type=str, help="[required]")
     parser.add_argument('--profile', type=str,
                         default="DEFAULT", help="[optional]")
     if len(sys.argv) < 2:
@@ -124,14 +125,8 @@ def main():
     args = parseInput()
     config = oci.config.from_file("~/.oci/config", args.profile)
     compartment_id = args.compartment_id
+    quick_start_vcn_ocid = args.vcn_id
     vcn_client = VirtualNetworkClient(config)
-    vcn_list_response = vcn_client.list_vcns(
-        compartment_id=compartment_id).data
-    quick_start_vcn = list(
-        filter(lambda d: d.display_name.startswith(
-            'oke-vcn-quick'), vcn_list_response)
-    )
-    quick_start_vcn_ocid = quick_start_vcn[0].id
     delete_route_tables_rules(
         quick_start_vcn_ocid=quick_start_vcn_ocid, vcn_client=vcn_client, compartment_id=compartment_id)
     delete_gateway_resouces(
