@@ -14,7 +14,7 @@ class CustomHelpFormatter(argparse.HelpFormatter):
 
 def parseInput():
     parser = argparse.ArgumentParser(
-        description="OKE Worker Node START Script.", formatter_class=CustomHelpFormatter)
+        description="OKE quick-start VCN automatically deleting script.", formatter_class=CustomHelpFormatter)
     parser.add_argument('--compartment-id', type=str, help="[required]")
     parser.add_argument('--vcn-id', type=str, help="[required]")
     parser.add_argument('--profile', type=str,
