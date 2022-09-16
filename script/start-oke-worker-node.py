@@ -23,12 +23,7 @@ def parseInput():
         return parser.parse_args()
 
 
-def main():
-    args = parseInput()
-    config = oci.config.from_file("~/.oci/config", args.profile)
-    compartment_id = args.compartment_id
-
-    compute_client = ComputeClient(config)
+def start_instance(compute_client: ComputeClient, compartment_id: str):
     compute_list_response = compute_client.list_instances(compartment_id).data
 
     oke_worker_nodes = list(
@@ -37,8 +32,19 @@ def main():
     for worker_node in oke_worker_nodes:
         worker_nodes_id = worker_node.id
         instance_action_response = compute_client.instance_action(
-            worker_nodes_id, "START")
-        print(instance_action_response.data.lifecycle_state)
+            worker_nodes_id, "START").data
+        print(instance_action_response.lifecycle_state +
+              ": " + instance_action_response.display_name)
+
+
+def main():
+    args = parseInput()
+    config = oci.config.from_file("~/.oci/config", args.profile)
+    compartment_id = args.compartment_id
+    compute_client = ComputeClient(config)
+    start_instance(compute_client=compute_client,
+                   compartment_id=compartment_id)
+    print("DONE.")
 
 
 if __name__ == "__main__":
